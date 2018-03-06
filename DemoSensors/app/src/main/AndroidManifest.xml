@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.demo_sensors.pulkit">
+
+    <!-- for Screen Off Proximity Sensor -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- for Call Screen Off Proximity Sensor -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:name=".utils.ProximityApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- service for Screen Off Proximity Sensor -->
+        <service
+            android:name=".services.ProximitySensorService"
+            android:enabled="true" />
+
+        <!-- receiver for Screen Off Proximity Sensor -->
+        <receiver
+            android:name=".receiver.SensorAdminReceiver"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+                <action android:name="android.app.action.ACTION_DEVICE_ADMIN_DISABLE_REQUESTED" />
+                <action android:name="android.app.action.ACTION_DEVICE_ADMIN_DISABLED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
+        </receiver>
+
+        <!-- receiver for Call Screen Off Proximity Sensor -->
+        <receiver android:name=".callreceiver.PhoneCallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.ScreenOffProximityActivity" />
+        <activity android:name=".activities.BasicAccelerometerSensorActivity" />
+        <activity
+            android:name=".activities.BallAccelerometerSensorActivity"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".activities.CarMovingAccelerometerSensorActivity"
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".activities.AmbientLightSensorActivity" />
+        <activity android:name=".activities.MusicAmbientLightSensorActivity" />
+        <activity android:name=".activities.ShakeMobileAccelerometerSensorActivity"></activity>
+    </application>
+
+</manifest>

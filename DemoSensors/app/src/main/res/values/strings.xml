@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DemoSensors</string>
+
+    <string name="button_disable">DISABLE</string>
+    <string name="button_enable">ENABLE</string>
+
+</resources>
